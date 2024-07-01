@@ -1,0 +1,282 @@
+[
+  {
+    "key": "FX_MODE_BLINK",
+    "name": "Blink",
+    "id": 1
+  },
+  {
+    "key": "FX_MODE_BREATH",
+    "name": "Atmen",
+    "id": 2
+  },
+  {
+    "key": "FX_MODE_COLOR_WIPE",
+    "name": "Color Wipe",
+    "id": 3
+  },
+  {
+    "key": "FX_MODE_COLOR_WIPE_INV",
+    "name": "Color Wipe Inv",
+    "id": 4
+  },
+  {
+    "key": "FX_MODE_COLOR_WIPE_REV",
+    "name": "Color Wipe Rev",
+    "id": 5
+  },
+  {
+    "key": "FX_MODE_COLOR_WIPE_REV_INV",
+    "name": "Color Wipe Rev Inv",
+    "id": 6
+  },
+  {
+    "key": "FX_MODE_COLOR_WIPE_RANDOM",
+    "name": "Color Wipe zufällig",
+    "id": 7
+  },
+  {
+    "key": "FX_MODE_RANDOM_COLOR",
+    "name": "Farbe zufällig",
+    "id": 8
+  },
+  {
+    "key": "FX_MODE_SINGLE_DYNAMIC",
+    "name": "Einzeln Dynamisch",
+    "id": 9
+  },
+  {
+    "key": "FX_MODE_MULTI_DYNAMIC",
+    "name": "Multi Dynamisch",
+    "id": 10
+  },
+  {
+    "key": "FX_MODE_RAINBOW",
+    "name": "Regenbogen",
+    "id": 11
+  },
+  {
+    "key": "FX_MODE_RAINBOW_CYCLE",
+    "name": "Regenbogen Kreis",
+    "id": 12
+  },
+  {
+    "key": "FX_MODE_SCAN",
+    "name": "Scan",
+    "id": 13
+  },
+  {
+    "key": "FX_MODE_DUAL_SCAN",
+    "name": "Dualer Scan",
+    "id": 14
+  },
+  {
+    "key": "FX_MODE_FADE",
+    "name": "Fade",
+    "id": 15
+  },
+  {
+    "key": "FX_MODE_THEATER_CHASE",
+    "name": "Theater",
+    "id": 16
+  },
+  {
+    "key": "FX_MODE_THEATER_CHASE_RAINBOW",
+    "name": "Theater Regenbogen",
+    "id": 17
+  },
+  {
+    "key": "FX_MODE_RUNNING_LIGHTS",
+    "name": "Laufend",
+    "id": 18
+  },
+  {
+    "key": "FX_MODE_TWINKLE",
+    "name": "Sternchen",
+    "id": 19
+  },
+  {
+    "key": "FX_MODE_TWINKLE_RANDOM",
+    "name": "Sternchen zufällig",
+    "id": 20
+  },
+  {
+    "key": "FX_MODE_TWINKLE_FADE",
+    "name": "Sternchen Fade",
+    "id": 21
+  },
+  {
+    "key": "FX_MODE_TWINKLE_FADE_RANDOM",
+    "name": "Sternchen Fade zufällig",
+    "id": 22
+  },
+  {
+    "key": "FX_MODE_SPARKLE",
+    "name": "Funkeln",
+    "id": 23
+  },
+  {
+    "key": "FX_MODE_FLASH_SPARKLE",
+    "name": "Funkekln Flash",
+    "id": 24
+  },
+  {
+    "key": "FX_MODE_HYPER_SPARKLE",
+    "name": "Hyper Funkeln",
+    "id": 25
+  },
+  {
+    "key": "FX_MODE_STROBE",
+    "name": "Stroboskop",
+    "id": 26
+  },
+  {
+    "key": "FX_MODE_STROBE_RAINBOW",
+    "name": "Stroboskop Regenbogen",
+    "id": 27
+  },
+  {
+    "key": "FX_MODE_MULTI_STROBE",
+    "name": "Multi-Stroboskop",
+    "id": 28
+  },
+  {
+    "key": "FX_MODE_BLINK_RAINBOW",
+    "name": "Regenboben blinken",
+    "id": 29
+  },
+  {
+    "key": "FX_MODE_CHASE_WHITE",
+    "name": "Weiß",
+    "id": 30
+  },
+  {
+    "key": "FX_MODE_CHASE_COLOR",
+    "name": "Farbe",
+    "id": 31
+  },
+  {
+    "key": "FX_MODE_CHASE_RANDOM",
+    "name": "Zufall",
+    "id": 32
+  },
+  {
+    "key": "FX_MODE_CHASE_RAINBOW",
+    "name": "Regenbogen",
+    "id": 33
+  },
+  {
+    "key": "FX_MODE_CHASE_FLASH",
+    "name": "Flash",
+    "id": 34
+  },
+  {
+    "key": "FX_MODE_CHASE_FLASH_RANDOM",
+    "name": "Flash Zufall",
+    "id": 35
+  },
+  {
+    "key": "FX_MODE_CHASE_RAINBOW_WHITE",
+    "name": "Weißer Regenbogen",
+    "id": 36
+  },
+  {
+    "key": "FX_MODE_CHASE_BLACKOUT",
+    "name": "Schwarz ausgehend",
+    "id": 37
+  },
+  {
+    "key": "FX_MODE_CHASE_BLACKOUT_RAINBOW",
+    "name": "Regenbogen ausgehend",
+    "id": 38
+  },
+  {
+    "key": "FX_MODE_COLOR_SWEEP_RANDOM",
+    "name": "Wischen zufällig",
+    "id": 39
+  },
+  {
+    "key": "FX_MODE_RUNNING_COLOR",
+    "name": "Laufende Farbe",
+    "id": 40
+  },
+  {
+    "key": "FX_MODE_RUNNING_RED_BLUE",
+    "name": "Rot-Blau laufend",
+    "id": 41
+  },
+  {
+    "key": "FX_MODE_RUNNING_RANDOM",
+    "name": "Zufällig laufend",
+    "id": 42
+  },
+  {
+    "key": "FX_MODE_LARSON_SCANNER",
+    "name": "Scanner",
+    "id": 43
+  },
+  {
+    "key": "FX_MODE_COMET",
+    "name": "Komet",
+    "id": 44
+  },
+  {
+    "key": "FX_MODE_FIREWORKS",
+    "name": "Feuerwerk",
+    "id": 45
+  },
+  {
+    "key": "FX_MODE_FIREWORKS_RANDOM",
+    "name": "Feuerwerk zufällig",
+    "id": 46
+  },
+  {
+    "key": "FX_MODE_MERRY_CHRISTMAS",
+    "name": "Weihnachten",
+    "id": 47
+  },
+  {
+    "key": "FX_MODE_FIRE_FLICKER",
+    "name": "Feuer",
+    "id": 48
+  },
+  {
+    "key": "FX_MODE_FIRE_FLICKER_SOFT",
+    "name": "Leichtes Feuer",
+    "id": 49
+  },
+  {
+    "key": "FX_MODE_FIRE_FLICKER_INTENSE",
+    "name": "Intensives Feuer",
+    "id": 50
+  },
+  {
+    "key": "FX_MODE_CIRCUS_COMBUSTUS",
+    "name": "Zirkus",
+    "id": 51
+  },
+  {
+    "key": "FX_MODE_HALLOWEEN",
+    "name": "Halloween",
+    "id": 52
+  },
+  {
+    "key": "FX_MODE_BICOLOR_CHASE",
+    "name": "BICOLOR",
+    "id": 53
+  },
+  {
+    "key": "FX_MODE_TRICOLOR_CHASE",
+    "name": "TRICOLOR",
+    "id": 54
+  },
+  {
+    "key": "FX_MODE_TWINKLEFOX",
+    "name": "TWINKLEFOX",
+    "id": 55
+  },
+  {
+    "key": "FX_MODE_RAIN",
+    "name": "Regen",
+    "id": 56
+  }
+]
