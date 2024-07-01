@@ -73,6 +73,7 @@ class _DevicePageState extends State<DevicePage> {
 
   void _selectDevice(Device device) {
     _prefService.saveCurrDevice(device);
+    //TODO - subscribe to mqtt broker
     Navigator.of(context).pop();
   }
 }

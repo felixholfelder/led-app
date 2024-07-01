@@ -12,9 +12,20 @@ class ColorElement extends StatefulWidget {
 class _ColorElementState extends State<ColorElement> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(7),
+      ),
       color: widget.color,
+      child: ClipPath(
+        child: ListTile(
+          onTap: () => {},
+        ),
+      ),
     );
+  }
+
+  void _sendColor() {
+    //TODO - send mqtt message
   }
 }

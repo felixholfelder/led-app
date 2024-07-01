@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:led_app/service/ColorService.dart';
 import 'package:led_app/ui/ColorElement.dart';
+
 import 'DevicePage.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,26 +16,41 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("LED"),
-      ),
-      body: Center(
-        child: GridView.builder(
-          itemCount: colors.length,
-          itemBuilder: (context, index) => ColorElement(color: _getColor(colors, index)),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 8.0,
-            crossAxisSpacing: 8.0,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text("LED"),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(icon: Icon(Icons.color_lens)),
+              Tab(icon: Icon(Icons.animation)),
+            ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showDevicePage,
-        tooltip: "Geräte verwalten",
-        child: const Icon(Icons.light, size: 28),
+        body: TabBarView(
+          children: <Widget>[
+            Center(
+              child: GridView.builder(
+                itemCount: colors.length,
+                itemBuilder: (context, index) => ColorElement(color: _getColor(colors, index)),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+              ),
+            ),
+            //TODO - added AnimationElement and it's functionality
+            Center(
+              child: Text("Animationen"),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _showDevicePage,
+          tooltip: "Geräte verwalten",
+          child: const Icon(Icons.light, size: 28),
+        ),
       ),
     );
   }
