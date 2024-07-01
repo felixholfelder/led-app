@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:led_app/model/Device.dart';
-import 'package:led_app/service/SharedPreferencesService.dart';
 
 class DeviceElement extends StatefulWidget {
-  const DeviceElement({super.key, required this.device});
+  const DeviceElement({super.key, required this.device, required this.onclick});
 
   final Device device;
+  final VoidCallback onclick;
 
   @override
   State<DeviceElement> createState() => _DeviceElementState();
 }
 
 class _DeviceElementState extends State<DeviceElement> {
-  final SharedPreferencesService _prefService = SharedPreferencesService();
-
   @override
   void initState() {
     super.initState();
@@ -26,17 +24,17 @@ class _DeviceElementState extends State<DeviceElement> {
         borderRadius: BorderRadius.circular(7),
       ),
       child: ClipPath(
-        clipper: ShapeBorderClipper(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-        ),
         child: ListTile(
-          onTap: () => _selectDevice,
+          onTap: () => widget.onclick(),
           title: Row(
             children: [
-              const Icon(Icons.lightbulb, size: 16),
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: widget.device.isSelected ? const Icon(Icons.lightbulb, size: 28) : const Icon(Icons.lightbulb_outline, size: 28),
+              ),
               Column(
                 children: [
-                  Text(widget.device.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(widget.device.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 ],
               ),
             ],
@@ -44,9 +42,5 @@ class _DeviceElementState extends State<DeviceElement> {
         ),
       ),
     );
-  }
-
-  void _selectDevice() {
-    _prefService.saveCurrDevice(widget.device);
   }
 }

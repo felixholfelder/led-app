@@ -18,7 +18,7 @@ class SharedPreferencesService {
     return null;
   }
 
-  void saveCurrDevice(Device device) async {
+  Future<void> saveCurrDevice(Device device) async {
     SharedPreferences prefs = await _prefs;
     prefs.setString(StorageKeys.deviceKey, jsonEncode(device.toJSON()));
   }

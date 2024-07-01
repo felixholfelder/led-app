@@ -2,5 +2,9 @@
   {
     "name": "Schreibtisch",
     "endpoint": "/devices/felix/desk"
+  },
+  {
+    "name": "Jacky",
+    "endpoint": "/devices/felix/jacky"
   }
 ]
