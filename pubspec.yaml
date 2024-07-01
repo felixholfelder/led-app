@@ -58,7 +58,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/devices.json
-    - assets/colors.json
     - assets/modes.json
 
   # The following line ensures that the Material Icons font is

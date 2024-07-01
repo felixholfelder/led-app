@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:led_app/service/ColorService.dart';
 import 'package:led_app/ui/ColorElement.dart';
 import 'DevicePage.dart';
 
@@ -27,16 +28,16 @@ class _HomePageState extends State<HomePage> {
           itemCount: colors.length,
           itemBuilder: (context, index) => ColorElement(color: _getColor(colors, index)),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // number of items in each row
-            mainAxisSpacing: 8.0, // spacing between rows
-            crossAxisSpacing: 8.0, // spacing between columns
+            crossAxisCount: 3,
+            mainAxisSpacing: 8.0,
+            crossAxisSpacing: 8.0,
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showDevicePage,
-        tooltip: 'Geräte verwalten',
-        child: const Icon(Icons.light),
+        tooltip: "Geräte verwalten",
+        child: const Icon(Icons.light, size: 28),
       ),
     );
   }
@@ -49,11 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadColors() async {
-    final String response = await rootBundle.loadString("assets/colors.json");
-    final List<dynamic> body = jsonDecode(response);
-
-    List<Color> list = body.map((dynamic item) => Color(int.parse(item))).toList();
-    setState(() => colors = list);
+    setState(() => colors = ColorService.getColors());
   }
 
   Color _getColor(List<Color> colors, int index) => colors[index];
