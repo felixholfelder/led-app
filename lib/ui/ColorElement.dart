@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../model/ColorModel.dart';
+import '../service/MqttService.dart';
 
 class ColorElement extends StatefulWidget {
-  const ColorElement({super.key, required this.color, required this.callback, required this.confirmCallback, required this.index});
+  const ColorElement(
+      {super.key, required this.color, required this.callback, required this.confirmCallback, required this.index});
 
   final ColorModel color;
   final Function callback;
@@ -15,6 +17,8 @@ class ColorElement extends StatefulWidget {
 }
 
 class _ColorElementState extends State<ColorElement> {
+  final MqttService _mqttService = MqttService();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -30,13 +34,18 @@ class _ColorElementState extends State<ColorElement> {
           ),
         ),
         if (widget.color.isSelected)
-          Center(child: IconButton(icon: Icon(Icons.done, color: Colors.grey[100]!.withOpacity(0.7)), iconSize: 60, onPressed: () => _changeColor())),
+          Center(
+              child: IconButton(
+                  icon: Icon(Icons.done, color: Colors.grey[100]!.withOpacity(0.7)),
+                  iconSize: 60,
+                  onPressed: () => _changeColor())),
       ],
     );
   }
 
   void _changeColor() {
-    //TODO - send mqtt message
+    MqttService.send("new color");
+
     if (widget.color.isSelected) {
       _setStaticColor();
       return;
@@ -46,7 +55,7 @@ class _ColorElementState extends State<ColorElement> {
   }
 
   void _setStaticColor() {
-    //TODO - send mqtt message
+    MqttService.send("Static color");
 
     widget.confirmCallback();
   }

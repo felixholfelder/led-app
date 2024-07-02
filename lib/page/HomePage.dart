@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:led_app/service/ColorService.dart';
+import 'package:led_app/service/MqttService.dart';
 import 'package:led_app/ui/AnimationElement.dart';
 import 'package:led_app/ui/ColorElement.dart';
 
@@ -58,8 +59,11 @@ class _HomePageState extends State<HomePage> {
         Center(
           child: GridView.builder(
             itemCount: colors.length,
-            itemBuilder: (context, index) =>
-                ColorElement(color: _getColor(colors, index), callback: _disableColorIndicators, confirmCallback: _disableAnimationIndicator, index: index),
+            itemBuilder: (context, index) => ColorElement(
+                color: _getColor(colors, index),
+                callback: _disableColorIndicators,
+                confirmCallback: _disableAnimationIndicator,
+                index: index),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3, crossAxisSpacing: 4, mainAxisSpacing: 4),
           ),
@@ -87,6 +91,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    MqttService.connect();
     _load();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:led_app/service/MqttService.dart';
 
 import '../model/AnimationModel.dart';
 
@@ -38,7 +39,7 @@ class _AnimationElementState extends State<AnimationElement> {
   }
 
   void _sendColor() {
-    //TODO - send mqtt message
+    MqttService.send("New animation");
 
     widget.callback(widget.index);
   }

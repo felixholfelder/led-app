@@ -30,7 +30,9 @@ class _DeviceElementState extends State<DeviceElement> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: widget.device.isSelected ? const Icon(Icons.lightbulb, size: 28) : const Icon(Icons.lightbulb_outline, size: 28),
+                child: widget.device.isSelected
+                    ? const Icon(Icons.lightbulb, size: 28)
+                    : const Icon(Icons.lightbulb_outline, size: 28),
               ),
               Column(
                 children: [

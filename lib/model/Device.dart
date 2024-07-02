@@ -13,8 +13,5 @@ class Device {
     );
   }
 
-  Map<String, dynamic> toJSON() => {
-    'name': name,
-    'endpoint': endpoint
-  };
+  Map<String, dynamic> toJSON() => {'name': name, 'endpoint': endpoint};
 }
