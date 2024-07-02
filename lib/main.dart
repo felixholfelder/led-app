@@ -1,25 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:led_app/page/DevicePage.dart';
 import 'package:led_app/page/HomePage.dart';
 
 void main() {
   runApp(const App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  ThemeData _theme = ThemeData(
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
+    useMaterial3: true,
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LED',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
+      theme: _theme,
+      home: HomePage(callback: _changeTheme),
     );
   }
-}
 
+  void _changeTheme(Color color) {
+    setState(() {
+      _theme = ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: color),
+        useMaterial3: true,
+      );
+    });
+  }
+}

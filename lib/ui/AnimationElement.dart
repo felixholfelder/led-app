@@ -18,6 +18,7 @@ class _AnimationElementState extends State<AnimationElement> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(7),
       ),
+      color: Colors.grey[100],
       child: ClipPath(
         child: ListTile(
           onTap: () => {},

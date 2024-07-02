@@ -4,18 +4,21 @@ import 'package:led_app/ui/AnimationElement.dart';
 import 'package:led_app/ui/ColorElement.dart';
 
 import '../model/AnimationModel.dart';
+import '../model/ColorModel.dart';
 import '../service/AnimationService.dart';
 import 'DevicePage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.callback});
+
+  final Function callback;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Color> colors = List.empty();
+  List<ColorModel> colors = List.empty();
   List<AnimationModel> animations = List.empty();
   int currentPageIndex = 0;
 
@@ -35,18 +38,18 @@ class _HomePageState extends State<HomePage> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.color_lens),
-            icon: Icon(Icons.color_lens_outlined),
+            selectedIcon: Icon(Icons.color_lens, size: 28),
+            icon: Icon(Icons.color_lens_outlined, size: 28),
             label: "Farben",
           ),
           NavigationDestination(
-            icon: Icon(Icons.play_circle_outline),
-            selectedIcon: Icon(Icons.play_circle),
+            icon: Icon(Icons.play_circle_outline, size: 28),
+            selectedIcon: Icon(Icons.play_circle, size: 28),
             label: "Animationen",
           ),
           NavigationDestination(
-            icon: Icon(Icons.play_circle_outline),
-            selectedIcon: Icon(Icons.play_circle),
+            icon: Icon(Icons.sports_esports_outlined, size: 28),
+            selectedIcon: Icon(Icons.sports_esports, size: 28),
             label: "Geräte",
           ),
         ],
@@ -55,9 +58,11 @@ class _HomePageState extends State<HomePage> {
         Center(
           child: GridView.builder(
             itemCount: colors.length,
-            itemBuilder: (context, index) => ColorElement(color: _getColor(colors, index)),
+            itemBuilder: (context, index) => ColorElement(color: _getColor(colors, index), callback: _disableIndicators, index: index),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4
             ),
           ),
         ),
@@ -66,9 +71,11 @@ class _HomePageState extends State<HomePage> {
         Center(
           child: GridView.builder(
             itemCount: animations.length,
-            itemBuilder: (context, index) => AnimationElement(animation: _getAnimaion(animations, index)),
+            itemBuilder: (context, index) => AnimationElement(animation: _getAnimation(animations, index)),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4
             ),
           ),
         ),
@@ -94,8 +101,17 @@ class _HomePageState extends State<HomePage> {
     setState(() => animations);
   }
 
-  Color _getColor(List<Color> colors, int index) => colors[index];
-  AnimationModel _getAnimaion(List<AnimationModel> animations, int index) => animations[index];
+  void _disableIndicators(int selectedIndex) {
+    for (int i = 0; i < colors.length; i++) {
+      colors[i].isSelected = false;
+      if (i == selectedIndex) {
+        colors[i].isSelected = true;
+        widget.callback(colors[i].color);
+      }
+    }
+    setState(() => colors);
+  }
 
-  void _showDevicePage() => Navigator.push(context, MaterialPageRoute(builder: (context) => const DevicePage()));
+  ColorModel _getColor(List<ColorModel> colors, int index) => colors[index];
+  AnimationModel _getAnimation(List<AnimationModel> animations, int index) => animations[index];
 }

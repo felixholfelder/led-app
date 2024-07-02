@@ -10,6 +10,8 @@ class AnimationService {
     final List<dynamic> body = jsonDecode(response);
 
     List<AnimationModel> list = body.map((dynamic item) => AnimationModel.fromJson(item)).toList();
+
+    list.sort((a, b) => a.name.compareTo(b.name));
     return list;
   }
 }
