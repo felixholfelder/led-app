@@ -58,12 +58,10 @@ class _HomePageState extends State<HomePage> {
         Center(
           child: GridView.builder(
             itemCount: colors.length,
-            itemBuilder: (context, index) => ColorElement(color: _getColor(colors, index), callback: _disableIndicators, index: index),
+            itemBuilder: (context, index) =>
+                ColorElement(color: _getColor(colors, index), callback: _disableColorIndicators, confirmCallback: _disableAnimationIndicator, index: index),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4
-            ),
+                crossAxisCount: 3, crossAxisSpacing: 4, mainAxisSpacing: 4),
           ),
         ),
 
@@ -71,12 +69,10 @@ class _HomePageState extends State<HomePage> {
         Center(
           child: GridView.builder(
             itemCount: animations.length,
-            itemBuilder: (context, index) => AnimationElement(animation: _getAnimation(animations, index)),
+            itemBuilder: (context, index) => AnimationElement(
+                animation: _getAnimation(animations, index), callback: _changeAnimationIndicator, index: index),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 4
-            ),
+                crossAxisCount: 3, crossAxisSpacing: 4, mainAxisSpacing: 4),
           ),
         ),
 
@@ -101,7 +97,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => animations);
   }
 
-  void _disableIndicators(int selectedIndex) {
+  void _disableColorIndicators(int selectedIndex) {
     for (int i = 0; i < colors.length; i++) {
       colors[i].isSelected = false;
       if (i == selectedIndex) {
@@ -112,6 +108,26 @@ class _HomePageState extends State<HomePage> {
     setState(() => colors);
   }
 
+  void _disableAnimationIndicator() {
+    for (AnimationModel a in animations) {
+      a.isSelected = false;
+    }
+
+    setState(() => animations);
+  }
+
+  void _changeAnimationIndicator(int selectedIndex) {
+    _disableAnimationIndicator();
+
+    for (int i = 0; i < animations.length; i++) {
+      if (i == selectedIndex) {
+        animations[i].isSelected = true;
+      }
+    }
+    setState(() => animations);
+  }
+
   ColorModel _getColor(List<ColorModel> colors, int index) => colors[index];
+
   AnimationModel _getAnimation(List<AnimationModel> animations, int index) => animations[index];
 }

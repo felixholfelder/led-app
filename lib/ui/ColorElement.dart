@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../model/ColorModel.dart';
 
 class ColorElement extends StatefulWidget {
-  const ColorElement({super.key, required this.color, required this.callback, required this.index});
+  const ColorElement({super.key, required this.color, required this.callback, required this.confirmCallback, required this.index});
 
   final ColorModel color;
   final Function callback;
+  final Function confirmCallback;
   final int index;
 
   @override
@@ -29,20 +30,24 @@ class _ColorElementState extends State<ColorElement> {
           ),
         ),
         if (widget.color.isSelected)
-          Center(child: IconButton(icon: const Icon(Icons.done, size: 60, color: Colors.grey), onPressed: () => _changeColor())),
+          Center(child: IconButton(icon: Icon(Icons.done, color: Colors.grey[100]!.withOpacity(0.7)), iconSize: 60, onPressed: () => _changeColor())),
       ],
     );
   }
 
   void _changeColor() {
     //TODO - send mqtt message
+    if (widget.color.isSelected) {
+      _setStaticColor();
+      return;
+    }
 
     widget.callback(widget.index);
   }
 
-  void _sendColor() {
+  void _setStaticColor() {
     //TODO - send mqtt message
 
-    widget.callback(widget.index);
+    widget.confirmCallback();
   }
 }
