@@ -22,21 +22,15 @@ class _DevicePageState extends State<DevicePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Geräte"),
-      ),
-      body: Center(
-        child: Skeletonizer(
-          enabled: _loading,
-          child: devices.isNotEmpty
-              ? ListView.builder(
-                  itemCount: devices.length,
-                  itemBuilder: (context, index) =>
-                      DeviceElement(device: devices[index], onclick: () => _selectDevice(devices[index])))
-              : const Text("Keine Geräte vorhanden"),
-        ),
+    return Center(
+      child: Skeletonizer(
+        enabled: _loading,
+        child: devices.isNotEmpty
+            ? ListView.builder(
+                itemCount: devices.length,
+                itemBuilder: (context, index) =>
+                    DeviceElement(device: devices[index], onclick: () => _selectDevice(devices[index])))
+            : const Text("Keine Geräte vorhanden"),
       ),
     );
   }
@@ -52,7 +46,7 @@ class _DevicePageState extends State<DevicePage> {
 
   Future<void> _loadDevices() async {
     final String response = await rootBundle.loadString("assets/devices.json");
-    final List<dynamic> body = json.decode(response);
+    final List<dynamic> body = jsonDecode(response);
 
     List<Device> list = body.map((dynamic item) => Device.fromJson(item)).toList();
     setState(() {

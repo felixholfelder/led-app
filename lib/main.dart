@@ -15,7 +15,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'LED',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
         useMaterial3: true,
       ),
       home: const HomePage(),
