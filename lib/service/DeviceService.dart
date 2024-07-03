@@ -2,19 +2,17 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../model/Device.dart';
 
 class DeviceService {
-
   Future<File> _initializeFile() async {
     final localDirectory = await getApplicationDocumentsDirectory();
     final file = File("${localDirectory.path}/devices.json");
 
-    if (file.readAsStringSync() == "[]") {
+    if (!await file.exists() || file.readAsStringSync() == "[]") {
       final initialContent = await rootBundle.loadString("assets/devices.json");
       await file.create();
       await file.writeAsString(initialContent);
@@ -22,7 +20,6 @@ class DeviceService {
 
     return file;
   }
-
 
   Future<List<Device>> loadDevices() async {
     File file = await _initializeFile();
@@ -35,16 +32,19 @@ class DeviceService {
   Future<void> appendDevice(Device device) async {
     List<Device> list = await loadDevices();
 
-    List<Device> d = list.where((element) => element.endpoint == device.endpoint).toList();
+    list.forEach((el) => {
+      if (el.endpoint == device.endpoint) el.isSelected = true
+    });
 
-    d.forEach((element) => element.isSelected = true);
-
-    write(d);
+    write(list);
   }
 
   Future<void> removeDevice(Device device) async {
     List<Device> list = await loadDevices();
-    list.removeWhere((element) => element.endpoint == device.endpoint);
+
+    list.forEach((el) => {
+      if (el.endpoint == device.endpoint) el.isSelected = false
+    });
 
     write(list);
   }

@@ -19,8 +19,7 @@ class _DevicePageState extends State<DevicePage> {
   Widget build(BuildContext context) {
     return devices.isNotEmpty
         ? ListView.builder(
-            itemCount: devices.length,
-            itemBuilder: (context, index) => DeviceElement(device: devices[index]))
+            itemCount: devices.length, itemBuilder: (context, index) => DeviceElement(device: devices[index]))
         : const Text("Keine Geräte vorhanden");
   }
 

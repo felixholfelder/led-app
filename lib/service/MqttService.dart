@@ -2,14 +2,15 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttService {
-  static MqttServerClient client = MqttServerClient("test.mosquitto.org", "felix_client_text_1234");
+  static MqttServerClient client = MqttServerClient("broker.hivemq.com", "felix_client_text_1234");
   static String currTopic = "";
 
   static void connect() async {
     client.logging(on: true); // Enable logging for debugging
 
     // client.setProtocolV31();
-    client.port = 1883;
+    client.secure = true;
+    client.port = 8883;
     client.keepAlivePeriod = 60; // Increase keep-alive period to 60 seconds
     client.connectTimeoutPeriod = 5000; // Increase timeout to 5 seconds
 
@@ -20,12 +21,6 @@ class MqttService {
     client.pongCallback = pong;
 
     try {
-      // final connMessage = MqttConnectMessage()
-      //     .withClientIdentifier('felix_client_text_1234')
-      //     .startClean()  // Non-persistent session for testing
-      //     .withWillQos(MqttQos.atLeastOnce);
-      // client.connectionMessage = connMessage;
-
       final status = await client.connect();
       if (status!.state == MqttConnectionState.connected) {
         print('MQTT: Connected');
