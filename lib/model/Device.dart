@@ -9,9 +9,12 @@ class Device {
     return Device(
       name: json['name'] as String,
       endpoint: json['endpoint'] as String,
-      isSelected: false,
+      isSelected: json['isSelected'] as bool,
     );
   }
 
-  Map<String, dynamic> toJSON() => {'name': name, 'endpoint': endpoint};
+  Map<String, dynamic> toJson() => {'name': name, 'endpoint': endpoint, 'isSelected': isSelected};
+
+  @override
+  String toString() => "{'name': $name, 'endpoint': $endpoint, 'isSelected': $isSelected}";
 }

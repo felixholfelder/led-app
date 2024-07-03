@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:led_app/model/Device.dart';
+import 'package:led_app/service/DeviceService.dart';
 
 class DeviceElement extends StatefulWidget {
-  const DeviceElement({super.key, required this.device, required this.onclick});
+  const DeviceElement({super.key, required this.device});
 
   final Device device;
-  final VoidCallback onclick;
 
   @override
   State<DeviceElement> createState() => _DeviceElementState();
 }
 
 class _DeviceElementState extends State<DeviceElement> {
+  final DeviceService _deviceService = DeviceService();
+
   @override
   void initState() {
     super.initState();
@@ -25,7 +27,7 @@ class _DeviceElementState extends State<DeviceElement> {
       ),
       child: ClipPath(
         child: ListTile(
-          onTap: () => widget.onclick(),
+          onTap: () => _toggleSelection(),
           title: Row(
             children: [
               Padding(
@@ -44,5 +46,15 @@ class _DeviceElementState extends State<DeviceElement> {
         ),
       ),
     );
+  }
+
+  void _toggleSelection() {
+    if (widget.device.isSelected) {
+      _deviceService.removeDevice(widget.device);
+      setState(() => widget.device.isSelected = false);
+    } else {
+      _deviceService.appendDevice(widget.device);
+      setState(() => widget.device.isSelected = true);
+    }
   }
 }
