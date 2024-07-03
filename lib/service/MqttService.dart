@@ -1,9 +1,11 @@
+import 'package:led_app/service/DeviceService.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttService {
   static MqttServerClient client = MqttServerClient("broker.hivemq.com", "felix_client_text_1234");
   static String currTopic = "";
+  static final DeviceService _deviceService = DeviceService();
 
   static void connect() async {
     client.logging(on: true); // Enable logging for debugging
@@ -70,12 +72,16 @@ class MqttService {
     }
   }
 
-  static void send(String message) {
+  static void send(String message) async {
     print("STATUS: ${client.connectionStatus!.state}");
     if (client.connectionStatus!.state == MqttConnectionState.connected) {
       final builder = MqttClientPayloadBuilder();
       builder.addString(message);
-      client.publishMessage(currTopic, MqttQos.exactlyOnce, builder.payload!);
+
+      //TODO - show dialog when no device is selected
+      var devices = await _deviceService.getSelectedDevices();
+      devices.forEach((el) => client.publishMessage(el.endpoint, MqttQos.exactlyOnce, builder.payload!));
+
       print("MQTT: Message sent");
     } else {
       print("MQTT: Cannot send, client not connected");

@@ -21,7 +21,7 @@ class DeviceService {
     return file;
   }
 
-  Future<List<Device>> loadDevices() async {
+  Future<List<Device>> getDevices() async {
     File file = await _initializeFile();
     final String response = file.readAsStringSync();
     final List<dynamic> body = jsonDecode(response);
@@ -29,8 +29,17 @@ class DeviceService {
     return body.map((dynamic item) => Device.fromJson(item)).toList();
   }
 
+  Future<List<Device>> getSelectedDevices() async {
+    File file = await _initializeFile();
+    final String response = file.readAsStringSync();
+    final List<dynamic> body = jsonDecode(response);
+
+    var list = body.map((dynamic item) => Device.fromJson(item)).toList();
+    return list.where((element) => element.isSelected == true).toList();
+  }
+
   Future<void> appendDevice(Device device) async {
-    List<Device> list = await loadDevices();
+    List<Device> list = await getDevices();
 
     list.forEach((el) => {
       if (el.endpoint == device.endpoint) el.isSelected = true
@@ -40,7 +49,7 @@ class DeviceService {
   }
 
   Future<void> removeDevice(Device device) async {
-    List<Device> list = await loadDevices();
+    List<Device> list = await getDevices();
 
     list.forEach((el) => {
       if (el.endpoint == device.endpoint) el.isSelected = false

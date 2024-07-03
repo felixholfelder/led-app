@@ -39,6 +39,7 @@ class _AnimationElementState extends State<AnimationElement> {
   }
 
   void _sendColor() {
+    //TODO - replace with MqttMessage
     MqttService.send("New animation");
 
     widget.callback(widget.index);

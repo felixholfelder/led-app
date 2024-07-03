@@ -49,12 +49,14 @@ class _ColorElementState extends State<ColorElement> {
       return;
     }
 
+    //TODO - replace with MqttMessage
     MqttService.send("new color");
 
     widget.callback(widget.index);
   }
 
   void _setStaticColor() {
+    //TODO - replace with MqttMessage
     MqttService.send("Static color");
 
     widget.confirmCallback();

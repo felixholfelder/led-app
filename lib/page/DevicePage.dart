@@ -17,6 +17,10 @@ class _DevicePageState extends State<DevicePage> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO - wrap in Scaffold
+    //TODO - create floating action button
+    //TODO - create dialog to create new device
+    //TODO - create dialog to delete device on long click
     return devices.isNotEmpty
         ? ListView.builder(
             itemCount: devices.length, itemBuilder: (context, index) => DeviceElement(device: devices[index]))
@@ -31,7 +35,7 @@ class _DevicePageState extends State<DevicePage> {
   }
 
   Future<void> _loadDevices() async {
-    devices = await _deviceService.loadDevices();
+    devices = await _deviceService.getDevices();
     setState(() => devices);
   }
 }
