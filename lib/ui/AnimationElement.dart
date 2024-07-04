@@ -28,7 +28,7 @@ class _AnimationElementState extends State<AnimationElement> {
             color: Colors.grey[100],
             child: ClipPath(
               child: ListTile(
-                onTap: () => _sendColor(),
+                onTap: () => _sendAnimation(),
                 title: Text(widget.animation.name),
               ),
             ),
@@ -39,9 +39,33 @@ class _AnimationElementState extends State<AnimationElement> {
     );
   }
 
-  void _sendColor() {
-    MqttService.send(ColorMqttMessage(animationId: widget.animation.id).toString());
+  void _sendAnimation() async {
+    bool sent = await MqttService.send(ColorMqttMessage(animationId: widget.animation.id).toString());
 
-    widget.callback(widget.index);
+    if (!sent) {
+      _openNoSelectionDialog(context);
+    } else {
+      widget.callback(widget.index);
+    }
+  }
+
+  Future<void> _openNoSelectionDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Du hast kein Gerät ausgewählt"),
+            actionsOverflowButtonSpacing: 20,
+            actions: [
+              //TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text("Abbrechen")),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor, foregroundColor: Colors.white),
+                child: const Text("Ok"),
+              ),
+            ],
+          );
+        });
   }
 }

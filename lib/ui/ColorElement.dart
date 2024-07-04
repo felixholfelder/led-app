@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:led_app/model/ColorMqttMessage.dart';
+import 'package:led_app/service/DeviceService.dart';
+import 'package:led_app/ui/DeviceElement.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../model/ColorModel.dart';
@@ -45,20 +47,28 @@ class _ColorElementState extends State<ColorElement> {
     );
   }
 
-  void _changeColor() {
+  void _changeColor() async {
     if (widget.color.isSelected) {
       _setStaticColor();
       return;
     }
 
-    MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: false).toString());
+    bool sent = await MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: false).toString());
 
-    widget.callback(widget.index);
+    if (!sent) {
+      DeviceService.showNoSelectionDialog(context);
+    } else {
+      widget.callback(widget.index);
+    }
   }
 
-  void _setStaticColor() {
-    MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: true).toString());
+  void _setStaticColor() async {
+    bool sent = await MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: true).toString());
 
-    widget.confirmCallback();
+    if (!sent) {
+      DeviceService.showNoSelectionDialog(context);
+    } else {
+      widget.confirmCallback();
+    }
   }
 }

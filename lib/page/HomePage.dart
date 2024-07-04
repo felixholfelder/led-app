@@ -69,7 +69,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        //TODO - added AnimationElement and it's functionality
         Center(
           child: GridView.builder(
             itemCount: animations.length,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:led_app/service/DeviceService.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -72,19 +74,18 @@ class MqttService {
     }
   }
 
-  static void send(String message) async {
-    print("STATUS: ${client.connectionStatus!.state}");
-    if (client.connectionStatus!.state == MqttConnectionState.connected) {
-      final builder = MqttClientPayloadBuilder();
-      builder.addString(message);
+  static Future<bool> send(String message) async {
+    if (_isConnected()) return false;
 
-      //TODO - show dialog when no device is selected
-      var devices = await _deviceService.getSelectedDevices();
-      devices.forEach((el) => client.publishMessage(el.endpoint, MqttQos.exactlyOnce, builder.payload!));
+    var devices = await _deviceService.getSelectedDevices();
+    if (devices.isEmpty) return false;
 
-      print("MQTT: Message sent");
-    } else {
-      print("MQTT: Cannot send, client not connected");
-    }
+
+    final builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+    devices.forEach((el) => client.publishMessage(el.endpoint, MqttQos.exactlyOnce, builder.payload!));
+    return true;
   }
+
+  static bool _isConnected() => client.connectionStatus!.state != MqttConnectionState.connected;
 }

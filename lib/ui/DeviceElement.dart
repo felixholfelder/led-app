@@ -3,9 +3,10 @@ import 'package:led_app/model/Device.dart';
 import 'package:led_app/service/DeviceService.dart';
 
 class DeviceElement extends StatefulWidget {
-  const DeviceElement({super.key, required this.device});
+  const DeviceElement({super.key, required this.device, required this.onLongClick});
 
   final Device device;
+  final Function onLongClick;
 
   @override
   State<DeviceElement> createState() => _DeviceElementState();
@@ -28,6 +29,7 @@ class _DeviceElementState extends State<DeviceElement> {
       child: ClipPath(
         child: ListTile(
           onTap: () => _toggleSelection(),
+          onLongPress: () => widget.onLongClick(widget.device),
           title: Row(
             children: [
               Padding(

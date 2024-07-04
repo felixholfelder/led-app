@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -38,6 +40,24 @@ class DeviceService {
     return list.where((element) => element.isSelected == true).toList();
   }
 
+  Future<List<Device>> saveDevice(Device device) async {
+    List<Device> devices = await getDevices();
+
+    devices.add(device);
+    write(devices);
+
+    return devices;
+  }
+
+  Future<List<Device>> deleteDevice(Device device) async {
+    List<Device> devices = await getDevices();
+
+    devices.removeWhere((element) => element.endpoint == device.endpoint);
+    write(devices);
+
+    return devices;
+  }
+
   Future<void> appendDevice(Device device) async {
     List<Device> list = await getDevices();
 
@@ -58,8 +78,28 @@ class DeviceService {
     write(list);
   }
 
-  void write(List<Device> value) async {
+  void write(List<Device> list) async {
     File file = await _initializeFile();
-    file.writeAsString(jsonEncode(value));
+    file.writeAsString(jsonEncode(list));
+  }
+
+  static Future<void> showNoSelectionDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Du hast kein Gerät ausgewählt"),
+            actionsOverflowButtonSpacing: 20,
+            actions: [
+              //TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text("Abbrechen")),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor, foregroundColor: Colors.white),
+                child: const Text("Ok"),
+              ),
+            ],
+          );
+        });
   }
 }
