@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:led_app/service/MqttService.dart';
 
 import '../model/AnimationModel.dart';
+import '../model/ColorMqttMessage.dart';
 
 class AnimationElement extends StatefulWidget {
   const AnimationElement({super.key, required this.animation, required this.callback, required this.index});
@@ -39,8 +40,7 @@ class _AnimationElementState extends State<AnimationElement> {
   }
 
   void _sendColor() {
-    //TODO - replace with MqttMessage
-    MqttService.send("New animation");
+    MqttService.send(ColorMqttMessage(animationId: widget.animation.id).toString());
 
     widget.callback(widget.index);
   }

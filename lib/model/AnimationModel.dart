@@ -15,5 +15,5 @@ class AnimationModel {
     );
   }
 
-  Map<String, dynamic> toJSON() => {'name': name, 'key': key, 'id': id};
+  Map<String, dynamic> toJson() => {'name': name, 'key': key, 'id': id};
 }

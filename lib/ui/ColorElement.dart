@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:led_app/model/ColorMqttMessage.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 
 import '../model/ColorModel.dart';
 import '../service/MqttService.dart';
@@ -49,15 +51,13 @@ class _ColorElementState extends State<ColorElement> {
       return;
     }
 
-    //TODO - replace with MqttMessage
-    MqttService.send("new color");
+    MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: false).toString());
 
     widget.callback(widget.index);
   }
 
   void _setStaticColor() {
-    //TODO - replace with MqttMessage
-    MqttService.send("Static color");
+    MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: true).toString());
 
     widget.confirmCallback();
   }

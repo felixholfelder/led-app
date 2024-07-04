@@ -5,4 +5,6 @@ class ColorModel {
   bool isSelected;
 
   ColorModel({required this.color, required this.isSelected});
+
+  @override String toString() => "[${color.red}, ${color.green}, ${color.blue}]";
 }
