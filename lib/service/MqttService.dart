@@ -12,9 +12,7 @@ class MqttService {
   static void connect() async {
     client.logging(on: true); // Enable logging for debugging
 
-    // client.setProtocolV31();
-    client.secure = true;
-    client.port = 8883;
+    client.port = 1883;
     client.keepAlivePeriod = 60; // Increase keep-alive period to 60 seconds
     client.connectTimeoutPeriod = 5000; // Increase timeout to 5 seconds
 
@@ -43,7 +41,6 @@ class MqttService {
 
   static void onConnected() {
     print("MQTT: Connected successfully");
-    subscribe("/devices/felix/desk");
   }
 
   static void onDisconnected() {
@@ -75,7 +72,7 @@ class MqttService {
   }
 
   static Future<bool> send(String message) async {
-    if (_isConnected()) return false;
+    if (!_isConnected()) return false;
 
     var devices = await _deviceService.getSelectedDevices();
     if (devices.isEmpty) return false;
@@ -87,5 +84,5 @@ class MqttService {
     return true;
   }
 
-  static bool _isConnected() => client.connectionStatus!.state != MqttConnectionState.connected;
+  static bool _isConnected() => client.connectionStatus!.state == MqttConnectionState.connected;
 }

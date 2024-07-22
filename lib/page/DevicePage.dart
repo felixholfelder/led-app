@@ -27,7 +27,7 @@ class _DevicePageState extends State<DevicePage> {
       body: devices.isNotEmpty
           ? ListView.builder(
               itemCount: devices.length, itemBuilder: (context, index) => DeviceElement(device: devices[index], onLongClick: (Device device) => _openDeleteDeviceDialog(context, device)))
-          : const Text("Keine Geräte vorhanden"),
+          : const Center(child: Text("Keine Geräte vorhanden")),
     );
   }
 

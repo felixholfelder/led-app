@@ -1,12 +1,1 @@
-[
-  {
-    "name": "Schreibtisch",
-    "endpoint": "/devices/felix/desk",
-    "isSelected": false
-  },
-  {
-    "name": "Jacky",
-    "endpoint": "/devices/felix/jacky",
-    "isSelected": false
-  }
-]
+[]

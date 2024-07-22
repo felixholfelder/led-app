@@ -5,5 +5,5 @@ class ColorMqttMessage {
 
   ColorMqttMessage({this.color, this.animationId, this.isStaticColor});
 
-  @override String toString() => "'color': $color, 'animationId': $animationId, 'isStaticColor': $isStaticColor}";
+  @override String toString() => "{'color': $color, 'animationId': $animationId, 'isStaticColor': $isStaticColor}";
 }
