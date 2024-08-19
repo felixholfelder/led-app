@@ -1,11 +1,13 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:led_app/model/ColorMqttMessage.dart';
 import 'package:led_app/service/DeviceService.dart';
-import 'package:led_app/ui/DeviceElement.dart';
-import 'package:mqtt_client/mqtt_client.dart';
 
+import '../enums/AnimationEnum.dart';
 import '../model/ColorModel.dart';
 import '../service/MqttService.dart';
+import '../utils/ColorStore.dart';
 
 class ColorElement extends StatefulWidget {
   const ColorElement(
@@ -53,7 +55,9 @@ class _ColorElementState extends State<ColorElement> {
       return;
     }
 
-    bool sent = await MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: false).toString());
+    ColorStore.color = widget.color;
+
+    bool sent = await MqttService.send(ColorMqttMessage(color: ColorStore.color!, animationId: ColorStore.animationId).getTelegram());
 
     if (!sent) {
       DeviceService.showNoSelectionDialog(context);
@@ -63,7 +67,9 @@ class _ColorElementState extends State<ColorElement> {
   }
 
   void _setStaticColor() async {
-    bool sent = await MqttService.send(ColorMqttMessage(color: widget.color.toString(), isStaticColor: true).toString());
+    ColorStore.color = widget.color;
+    ColorStore.animationId = AnimationEnum.static.animationId;
+    bool sent = await MqttService.send(ColorMqttMessage(color: ColorStore.color!, animationId: ColorStore.animationId).getTelegram());
 
     if (!sent) {
       DeviceService.showNoSelectionDialog(context);

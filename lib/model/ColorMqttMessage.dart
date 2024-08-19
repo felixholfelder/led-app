@@ -1,9 +1,14 @@
-class ColorMqttMessage {
-  final String? color;
-  final int? animationId;
-  final bool? isStaticColor;
+import 'package:led_app/MqttMessage.dart';
+import 'package:led_app/model/ColorModel.dart';
 
-  ColorMqttMessage({this.color, this.animationId, this.isStaticColor});
+import '../enums/AnimationEnum.dart';
 
-  @override String toString() => "{'color': $color, 'animationId': $animationId, 'isStaticColor': $isStaticColor}";
+class ColorMqttMessage extends MqttMessage {
+  final ColorModel color;
+  final int animationId;
+
+  ColorMqttMessage({required this.color, required this.animationId});
+
+  @override
+  String getTelegram() => "@${color.color.red},${color.color.green},${color.color.blue},$animationId;";
 }

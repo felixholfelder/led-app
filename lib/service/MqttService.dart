@@ -62,7 +62,6 @@ class MqttService {
   static void subscribe(String topic) {
     currTopic = topic;
     client.subscribe(currTopic, MqttQos.atMostOnce);
-    send("Hello from mqtt_client");
   }
 
   static void unsubscribe() {

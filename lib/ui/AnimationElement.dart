@@ -3,6 +3,7 @@ import 'package:led_app/service/MqttService.dart';
 
 import '../model/AnimationModel.dart';
 import '../model/ColorMqttMessage.dart';
+import '../utils/ColorStore.dart';
 
 class AnimationElement extends StatefulWidget {
   const AnimationElement({super.key, required this.animation, required this.callback, required this.index});
@@ -40,7 +41,8 @@ class _AnimationElementState extends State<AnimationElement> {
   }
 
   void _sendAnimation() async {
-    bool sent = await MqttService.send(ColorMqttMessage(animationId: widget.animation.id).toString());
+    ColorStore.animationId = widget.animation.id;
+    bool sent = await MqttService.send(ColorMqttMessage(color: ColorStore.color!, animationId: widget.animation.id).getTelegram());
 
     if (!sent) {
       _openNoSelectionDialog(context);
