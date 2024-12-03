@@ -82,24 +82,4 @@ class DeviceService {
     File file = await _initializeFile();
     file.writeAsString(jsonEncode(list));
   }
-
-  static Future<void> showNoSelectionDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Du hast kein Gerät ausgewählt"),
-            actionsOverflowButtonSpacing: 20,
-            actions: [
-              //TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text("Abbrechen")),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor, foregroundColor: Colors.white),
-                child: const Text("Ok"),
-              ),
-            ],
-          );
-        });
-  }
 }

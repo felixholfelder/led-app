@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:led_app/model/ColorMqttMessage.dart';
 import 'package:led_app/service/DeviceService.dart';
+import 'package:led_app/ui/NoSelectionDialog.dart';
 
 import '../enums/AnimationEnum.dart';
 import '../model/ColorModel.dart';
@@ -60,7 +61,7 @@ class _ColorElementState extends State<ColorElement> {
     bool sent = await MqttService.send(ColorMqttMessage(color: ColorStore.color!, animationId: ColorStore.animationId).getTelegram());
 
     if (!sent) {
-      DeviceService.showNoSelectionDialog(context);
+      NoSelectionDialog();
     } else {
       widget.callback(widget.index);
     }
@@ -72,7 +73,7 @@ class _ColorElementState extends State<ColorElement> {
     bool sent = await MqttService.send(ColorMqttMessage(color: ColorStore.color!, animationId: ColorStore.animationId).getTelegram());
 
     if (!sent) {
-      DeviceService.showNoSelectionDialog(context);
+      NoSelectionDialog();
     } else {
       widget.confirmCallback();
     }
